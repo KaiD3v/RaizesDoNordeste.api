@@ -13,7 +13,7 @@ API REST em Java/Spring Boot para gestão de pedidos multicanal, cardápio, esto
 - Springdoc OpenAPI (Swagger)
 - Maven
 - Lombok
-- MapStruct
+- spring-dotenv (carregamento de `.env`)
 
 ## Pré-requisitos
 
@@ -30,24 +30,37 @@ git clone <url-do-repositorio>
 cd raizesdonordeste.api
 ```
 
-### 2. Subir o PostgreSQL
+### 2. Configurar variáveis de ambiente
+
+Copie o arquivo de exemplo e ajuste os valores:
+
+```bash
+cp .env.example .env
+```
+
+Edite o `.env` com suas credenciais. **Nunca commite o `.env`** — ele já está no `.gitignore`.
+
+| Variável | Descrição |
+|----------|-----------|
+| `DB_URL` | URL JDBC do PostgreSQL |
+| `DB_USER` | Usuário do banco (aplicação) |
+| `DB_PASSWORD` | Senha do banco (aplicação) |
+| `POSTGRES_DB` | Nome do banco (Docker Compose) |
+| `POSTGRES_USER` | Usuário do banco (Docker Compose) |
+| `POSTGRES_PASSWORD` | Senha do banco (Docker Compose) |
+| `JWT_SECRET` | Chave secreta JWT (mín. 32 caracteres) |
+| `JWT_EXPIRATION_MS` | Expiração do token em ms |
+| `SERVER_PORT` | Porta da API (padrão: 8080) |
+
+A aplicação carrega o `.env` automaticamente via [spring-dotenv](https://github.com/paulschwarz/spring-dotenv) na inicialização.
+
+### 3. Subir o PostgreSQL
 
 ```bash
 docker-compose up -d
 ```
 
-### 3. Configurar variáveis de ambiente (opcional)
-
-As variáveis abaixo possuem valores padrão em `application.yml`:
-
-```bash
-export DB_URL=jdbc:postgresql://localhost:5432/raizes
-export DB_USER=raizes
-export DB_PASSWORD=raizes
-export JWT_SECRET=raizes-do-nordeste-jwt-secret-key-min-32-chars-long
-export JWT_EXPIRATION_MS=86400000
-export SERVER_PORT=8080
-```
+O Docker Compose também lê o `.env` para configurar o container PostgreSQL.
 
 ### 4. Executar a aplicação
 
