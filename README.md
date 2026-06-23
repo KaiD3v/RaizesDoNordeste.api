@@ -26,7 +26,7 @@ API REST em Java/Spring Boot para gestão de pedidos multicanal, cardápio, esto
 ### 1. Clonar o repositório
 
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/KaiD3v/RaizesDoNordeste.api.git
 cd raizesdonordeste.api
 ```
 
